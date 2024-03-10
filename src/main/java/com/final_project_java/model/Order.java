@@ -25,13 +25,11 @@ public class Order {
     private int quantity;
     private String status;
 
-    // Many-To-One relationship with customer entity
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false, referencedColumnName = "id")
     @JsonIgnoreProperties("orders")
     private Customer customer;
 
-    //Many-to-many relationship with book entity
     @ManyToMany
     @JoinTable(name = "orders_items",
             joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),

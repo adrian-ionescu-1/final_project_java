@@ -16,9 +16,11 @@ public class Customer {
     private String name;
     private String address;
     private String email;
+    private String password;
     private String phone;
+    @Enumerated(value = EnumType.STRING)
+    private UserRole userRole;
 
-    // One-To-Many relationship with order entity
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
     private List<Order> orders;

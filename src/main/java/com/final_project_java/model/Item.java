@@ -6,9 +6,6 @@ import lombok.Data;
 
 import java.util.List;
 
-//@Getter
-//@Setter
-//@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "items")
@@ -27,7 +24,6 @@ public class Item {
     @Column(name = "item_category")
     private String category;
 
-    //Many-to-many relationship with order entity
     @ManyToMany(mappedBy = "itemList", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("itemList")
     private List<Order> orderList;
