@@ -5,7 +5,6 @@ import com.final_project_java.model.Item;
 import com.final_project_java.service.ItemService;
 import com.final_project_java.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +13,18 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/api/items") // http://localhost:8080/api/items
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping("/getAllItems")
+    @GetMapping
     public ResponseEntity<ApiResponse> getAllItems() {
         List<Item> itemsList = itemService.readAllItems();
         if (itemsList.isEmpty()) {
             throw new ResourceNotFoundException("No items found in DB");
         }
+
         return ResponseEntity.ok(ApiResponse.success("All items list", itemsList));
     }
 
@@ -31,6 +32,7 @@ public class ItemController {
     public ResponseEntity<ApiResponse> getItemById(@PathVariable Long id) {
         Optional<Item> itemById = itemService.getItemById(id);
         itemById.orElseThrow(() -> new ResourceNotFoundException("Item with id: " + id + " doesn't exist in DB"));
+
         return ResponseEntity.ok(ApiResponse.success("Item by id", itemById.get()));
     }
 
@@ -40,6 +42,7 @@ public class ItemController {
         if (items.isEmpty()) {
             throw new ResourceNotFoundException("No items found width: " + name + " in DB");
         }
+
         return ResponseEntity.ok(ApiResponse.success("Item by name", items));
     }
 
@@ -49,12 +52,14 @@ public class ItemController {
         if (itemsByCategory.isEmpty()) {
             throw new ResourceNotFoundException("No items found width: " + category + " in DB");
         }
+
         return ResponseEntity.ok(ApiResponse.success("Items by category", itemsByCategory));
     }
 
     @PostMapping("/addNewItem")
     public ResponseEntity<ApiResponse> saveItem(@RequestBody Item item) {
         Item newItem = itemService.saveItem(item);
+
         return ResponseEntity.ok(ApiResponse.success("Add new item", newItem));
     }
 
@@ -66,6 +71,7 @@ public class ItemController {
         Optional<Item> itemOptional = itemService.getItemById(item.getId());
         itemOptional.orElseThrow(() ->
                 new ResourceNotFoundException("Item with id: " + item.getId() + " doesn't exist in DB"));
+
         return ResponseEntity.ok(ApiResponse.success("Update item", itemService.updateItem(item)));
     }
 
@@ -74,6 +80,7 @@ public class ItemController {
         Optional<Item> itemOptional = itemService.getItemById(id);
         itemOptional.orElseThrow(() -> new ResourceNotFoundException("Item with id: " + id + " doesn't exist in DB"));
         itemService.deleteItemById(id);
+
         return ResponseEntity.ok(ApiResponse.success("Item with id: " + id + " doesn't exist in DB", null));
     }
 }

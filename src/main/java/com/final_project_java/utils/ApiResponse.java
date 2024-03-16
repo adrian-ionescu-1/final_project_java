@@ -1,6 +1,5 @@
 package com.final_project_java.utils;
 
-import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
 //@Builder
@@ -28,6 +27,7 @@ public class ApiResponse {
     }
 
     public static ApiResponse success(String message, Object data) {
+
         return new Builder()
                 .status(HttpStatus.OK.value())
                 .message(message)
@@ -36,6 +36,7 @@ public class ApiResponse {
     }
 
     public static ApiResponse error(int status, String message) {
+
         return new Builder()
                 .status(status)
                 .message(message)
@@ -52,20 +53,24 @@ public class ApiResponse {
 
         public Builder status(int status) {
             this.status = status;
+
             return this;
         }
 
         public Builder message(String message) {
             this.message = message;
+
             return this;
         }
 
         public Builder data(Object data) {
             this.data = data;
+
             return this;
         }
 
         public ApiResponse build() {
+
             return new ApiResponse(this);
         }
     }

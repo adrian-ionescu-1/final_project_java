@@ -15,7 +15,6 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name = "order_name")
     private String name;
     private String description;
     @JsonFormat(pattern = "yyyy-MM-dd")
