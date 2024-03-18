@@ -71,8 +71,9 @@ public class CustomerController {
         return ResponseEntity.ok(ApiResponse.success("Update customer", customerService.updateCustomer(customer)));
     }
 
-    @DeleteMapping("/deleteCustomer/{id}")
+    @DeleteMapping("/deleteCustomerById/{id}")
     public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Long id) {
+        System.out.println(id);
         Optional<Customer> customerOptional = customerService.getCustomerById(id);
         customerOptional.orElseThrow(() -> new ResourceNotFoundException("Customer with id: " + id + " doesn't exist in DB"));
         customerService.deleteCustomerById(id);

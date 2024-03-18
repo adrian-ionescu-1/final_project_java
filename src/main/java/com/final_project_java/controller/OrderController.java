@@ -65,12 +65,12 @@ public class OrderController {
         return ResponseEntity.ok(ApiResponse.success("Update order", orderService.updateOrder(order)));
     }
 
-    @DeleteMapping("/deleteOrder/{id}")
+    @DeleteMapping("/deleteOrderById/{id}")
     public ResponseEntity<ApiResponse> deleteOrder(@PathVariable Long id) {
         Optional<Order> orderOptional = orderService.getOrderById(id);
         orderOptional.orElseThrow(() -> new ResourceNotFoundException("Order with id: " + id + " doesn't exist in DB"));
         orderService.deleteOrderById(id);
 
-        return ResponseEntity.ok(ApiResponse.success("Order with id: " + id + " doesn't exist in DB", null));
+        return ResponseEntity.ok(ApiResponse.success("Order with id: " + id + " delete successfully", null));
     }
 }

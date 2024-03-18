@@ -81,6 +81,6 @@ public class ItemController {
         itemOptional.orElseThrow(() -> new ResourceNotFoundException("Item with id: " + id + " doesn't exist in DB"));
         itemService.deleteItemById(id);
 
-        return ResponseEntity.ok(ApiResponse.success("Item with id: " + id + " doesn't exist in DB", null));
+        return ResponseEntity.ok(ApiResponse.success("Item with id: " + id + " delete successfully", null));
     }
 }
